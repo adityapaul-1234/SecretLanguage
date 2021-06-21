@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang=“en”>
-<head>
-<title> My Secret Language </title>
-</head>
+    <html>
+    <head>
+    <script>
+      var openFile = function(event) {
+        var input = event.target;
 
-<body>
-var input = document.getElementById("myFile");
-var output = document.getElementById("output");
-
-
-input.addEventListener("change", function () {
-  if (this.files && this.files[0]) {
-    var myFile = this.files[0];
-    var reader = new FileReader();
-    
-    reader.addEventListener('load', function (e) {
-      output.textContent = e.target.result;
-    });
-    
-    reader.readAsBinaryString(myFile);
-  }   
-});
-
-</html>
+        var reader = new FileReader();
+        reader.onload = function(){
+          var text = reader.result;
+          var node = document.getElementById('output');
+          node.innerText = text;
+          console.log(reader.result.substring(0, 200));
+        };
+        reader.readAsText(input.files[0]);
+      };
+    </script>
+    </head>
+    <body>
+    <input type='file' accept='text/plain' onchange='openFile(event)'><br>
+    <div id='output'>
+    ...
+    </div>
+    </body>
+    </html>
